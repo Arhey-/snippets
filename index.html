@@ -1,12 +1,27 @@
 <head>
 	<style>
-		body { background-color: #222; color: #ddd }
-    a { color: #39c; text-decoration: none; }
+		body {
+			background-color: #222;
+			color: #ddd
+		}
+
 		#list {
 			display: grid;
+			grid-template-columns: auto min-content;
 		}
+
+		a {
+			color: #3db8f5;
+			text-decoration: none;
+		}
+
+		time {
+			color: #adadad;
+		}
+
 		.private:before {
-			content: "🔒"
+			content: "🔒";
+			font-size: 0.7rem;
 		}
 	</style>
 </head>
