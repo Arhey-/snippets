@@ -1,4 +1,4 @@
-import { html } from '../memman/html.js'
+import { editCredentials, view } from './view.js'
 
 const user = localStorage.bitbucketWorkspace
 const auth = localStorage.bitbucketAppPwd
@@ -10,32 +10,33 @@ if (!user || !auth || !id) {
   editCredentials();
 } else try {
   const r = await get();
-  console.log(r)
+  view(r.values)
+  next(r.next)
 } catch (e) {
   editCredentials(e);
 }
 
-async function get(name) {
-  const r = await fetch(snippetUrl, { headers });
-  if (!r.ok) throw r.status;
-  return r.json();
+async function get(url = snippetUrl) {
+  const u = query(url, { fields: '-values.owner,-values.workspace,-values.links' })
+  const r = await fetch(u, { headers })
+  if (!r.ok) throw r.status
+  const j = await r.json()
+  console.log(u.href, j)
+  return j
 }
 
-function editCredentials(error = '') {
-  document.body.innerHTML = `<p>${error}</p>`;
-  document.body.append(
-    input('Workspace', user),
-    input('SnippetId', id),
-    input('AppPwd', auth),
-    html.p('enter correct bitbucket creds and reload')
-  );
+function query(url, q) {
+  const u = new URL(url)
+  for (const [k, v] of Object.entries(q)) {
+    u.searchParams.set(k, v)
+  }
+  return u
 }
 
-function input(name, value = '') {
-  const i = html.input({
-    type: 'text',
-    value,
-    onchange: () => localStorage.setItem('bitbucket' + name, i.value),
-  });
-  return html.p(html.label(name, i));
+async function next(url) {
+  while (url) {
+    const r = await get(url)
+    url = r.next
+    view(r.values)
+  }
 }
