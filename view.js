@@ -1,4 +1,4 @@
-import { html } from '../memman/html.js'
+import { html } from '../lib/html.js'
 
 export function editCredentials(error = '') {
 	document.body.innerHTML = `<p>${error}</p>`;
