@@ -1,4 +1,5 @@
 import { html } from '../lib/html.js'
+import { user, auth, id } from './main.js';
 
 export function editCredentials(error = '') {
 	document.body.innerHTML = `<p>${error}</p>`;

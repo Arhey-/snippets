@@ -1,8 +1,9 @@
 import { editCredentials, view } from './view.js'
 
-const user = localStorage.bitbucketWorkspace
-const auth = localStorage.bitbucketAppPwd
-const id = localStorage.bitbucketSnippetId
+export const user = localStorage.bitbucketWorkspace
+export const auth = localStorage.bitbucketAppPwd
+export const id = localStorage.bitbucketSnippetId
+
 const snippetUrl = `https://api.bitbucket.org/2.0/snippets/${user}`
 const headers = { 'Authorization': 'Basic ' + btoa(user + ':' + auth) }
 
