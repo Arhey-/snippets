@@ -20,7 +20,7 @@ function input(name, value = '') {
 	return html.p(html.label(name, i));
 }
 
-const base = 'https://bitbucket.org/await-andy/workspace/snippets/'
+const base = `https://bitbucket.org/${user}/workspace/snippets/`
 const list = document.querySelector('#list')
 const today = new Date().toLocaleDateString()
 
